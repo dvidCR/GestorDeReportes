@@ -6,18 +6,18 @@ public class Sales {
 	private int id_empleado;
 	private int id_producto;
 	private int cantidad;
-	private String fehca_venta;
+	private String fecha_venta;
 	private float total_venta;
 	
 	public Sales() {
 		
 	}
 	
-	public Sales(int id_empleado, int id_producto, int cantidad, String fehca_venta, float total_venta) {
+	public Sales(int id_empleado, int id_producto, int cantidad, String fecha_venta, float total_venta) {
 		this.id_empleado = id_empleado;
 		this.id_producto = id_producto;
 		this.cantidad = cantidad;
-		this.fehca_venta = fehca_venta;
+		this.fecha_venta = fecha_venta;
 		this.total_venta = total_venta;
 	}
 
@@ -53,12 +53,12 @@ public class Sales {
 		this.cantidad = cantidad;
 	}
 
-	public String getFehca_venta() {
-		return fehca_venta;
+	public String getFecha_venta() {
+		return fecha_venta;
 	}
 
-	public void setFehca_venta(String fehca_venta) {
-		this.fehca_venta = fehca_venta;
+	public void setFecha_venta(String fecha_venta) {
+		this.fecha_venta = fecha_venta;
 	}
 
 	public float getTotal_venta() {
@@ -72,7 +72,7 @@ public class Sales {
 	@Override
 	public String toString() {
 		return "Sales [id_venta=" + id_venta + ", id_empleado=" + id_empleado + ", id_producto=" + id_producto
-				+ ", cantidad=" + cantidad + ", fehca_venta=" + fehca_venta + ", total_venta=" + total_venta + "]";
+				+ ", cantidad=" + cantidad + ", fehca_venta=" + fecha_venta + ", total_venta=" + total_venta + "]";
 	}
 	
 }

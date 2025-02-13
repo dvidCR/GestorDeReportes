@@ -12,7 +12,8 @@ import model.Sales;
 
 public class Query {
 	
-	private OptionsBBDD options;
+	private OptionsBBDD options = new OptionsBBDD();
+
 	
 	// Método para obtener los productos
     public List<Products> getProducts() {
@@ -58,7 +59,7 @@ public class Query {
         	ResultSet rs = stmt.executeQuery("SELECT * FROM Ventas")) {
 
             while (rs.next()) {
-            	Sales sales = new Sales(rs.getInt("id_empleado"), rs.getInt("id_producto"), rs.getInt("cantidad"), rs.getString("fehca_venta"), rs.getFloat("total_venta"));
+            	Sales sales = new Sales(rs.getInt("id_empleado"), rs.getInt("id_producto"), rs.getInt("cantidad"), rs.getString("fecha_venta"), rs.getFloat("total_venta"));
                 list.add(sales);
             }
 
