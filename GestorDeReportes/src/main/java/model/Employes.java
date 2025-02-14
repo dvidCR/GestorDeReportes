@@ -11,6 +11,13 @@ public class Employes {
 		
 	}
 	
+	public Employes(int id_empleado, String nombre, String cargo, String fecha_contratacion) {
+		this.id_empleado = id_empleado;
+		this.nombre = nombre;
+		this.cargo = cargo;
+		this.fecha_contratacion = fecha_contratacion;
+	}
+	
 	public Employes(String nombre, String cargo, String fecha_contratacion) {
 		this.nombre = nombre;
 		this.cargo = cargo;
@@ -47,12 +54,6 @@ public class Employes {
 
 	public void setFecha_contratacion(String fecha_contratacion) {
 		this.fecha_contratacion = fecha_contratacion;
-	}
-
-	@Override
-	public String toString() {
-		return "Employes [id_empleado=" + id_empleado + ", nombre=" + nombre + ", cargo=" + cargo
-				+ ", fecha_contratacion=" + fecha_contratacion + "]";
 	}
 	
 }

@@ -18,6 +18,10 @@ public class CreateReport extends JFrame {
         JButton excelButton = new JButton("Generar Excel");
         JButton bothButton = new JButton("Generar Ambos");
 
+        pdfButton.addActionListener(e -> new SelectPath("PDF"));
+        excelButton.addActionListener(e -> new SelectPath("Excel"));
+        bothButton.addActionListener(e -> new SelectPath("Both"));
+
         buttonPanel.add(pdfButton);
         buttonPanel.add(excelButton);
 

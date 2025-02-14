@@ -59,7 +59,12 @@ public class ViewContent extends JFrame {
         filterPanel.add(filterField);
         add(filterPanel, BorderLayout.SOUTH);
 
-        tableModel = new DefaultTableModel();
+        tableModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         table = new JTable(tableModel);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
@@ -75,29 +80,27 @@ public class ViewContent extends JFrame {
             if ("Productos".equals(selectedTable)) {
                 tableModel.setColumnIdentifiers(new String[]{"Nombre", "Categoría", "Precio", "Stock"});
                 List<Products> products = query.getProducts();
-                if (products.isEmpty()) throw new Exception();
+                
                 for (Products product : products) {
                     tableModel.addRow(new Object[]{product.getNombre(), product.getCategoria(), product.getPrecio(), product.getStock()});
                 }
             } else if ("Empleados".equals(selectedTable)) {
                 tableModel.setColumnIdentifiers(new String[]{"Nombre", "Cargo", "Fecha de Contratación"});
                 List<Employes> employees = query.getEmployes();
-                if (employees.isEmpty()) throw new Exception();
+                
                 for (Employes employee : employees) {
                     tableModel.addRow(new Object[]{employee.getNombre(), employee.getCargo(), employee.getFecha_contratacion()});
                 }
             } else if ("Ventas".equals(selectedTable)) {
                 tableModel.setColumnIdentifiers(new String[]{"ID Empleado", "ID Producto", "Cantidad", "Fecha Venta", "Total Venta"});
                 List<Sales> sales = query.getSales();
-                if (sales.isEmpty()) throw new Exception();
+                
                 for (Sales sale : sales) {
                     tableModel.addRow(new Object[]{sale.getId_empleado(), sale.getId_producto(), sale.getCantidad(), sale.getFecha_venta(), sale.getTotal_venta()});
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "No hay datos en la tabla. Creando base de datos...", "Aviso", JOptionPane.WARNING_MESSAGE);
-            new CreateBBDD().crearTabla();
-            loadTableData();
+            e.printStackTrace();
         }
     }
 
