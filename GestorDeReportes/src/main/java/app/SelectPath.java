@@ -33,7 +33,7 @@ public class SelectPath extends JFrame {
         filePathField.setEditable(false);
         add(filePathField);
 
-        browseButton = new JButton("Seleccionar");
+        browseButton = new JButton("Seleccionar Ubicación");
         browseButton.addActionListener(this::chooseDirectory);
         add(browseButton);
 

@@ -73,11 +73,7 @@ public class Query {
     
  // Método para insertar productos usando PreparedStatement
     public void setProducts(String nombre, String categoria, float precio, int stock) throws SQLException {
-        String sql = "INSERT INTO Productos (nombre, categoria, precio, stock) VALUES (" +
-				nombre + ", " +
-				categoria + ", " +
-				precio + ", " +
-				stock + ")";
+        String sql = "INSERT INTO Productos (nombre, categoria, precio, stock) VALUES (?, ?, ?, ?)";
 
         try (Connection conection = options.getConnection();
              PreparedStatement pstmt = conection.prepareStatement(sql)) {
@@ -96,10 +92,7 @@ public class Query {
 
     // Método para insertar empleados usando PreparedStatement
     public void setEmployes(String nombre, String cargo, String fecha_contratacion) throws SQLException {
-        String sql = "INSERT INTO Empleados (nombre, cargo, fecha_contratacion) VALUES (" +
-				nombre + ", " +
-				cargo + ", " +
-				fecha_contratacion + ")";
+        String sql = "INSERT INTO Empleados (nombre, cargo, fecha_contratacion) VALUES (?, ?, ?)";
 
         try (Connection conection = options.getConnection();
              PreparedStatement pstmt = conection.prepareStatement(sql)) {
@@ -117,12 +110,7 @@ public class Query {
 
     // Método para insertar ventas usando PreparedStatement
     public void setSales(int id_empleado, int id_producto, int cantidad, String fecha_venta, float total_venta) throws SQLException {
-        String sql = "INSERT INTO Ventas (id_empleado, id_producto, cantidad, fecha_venta, total_venta) VALUES (" +
-				id_empleado + ", " +
-				id_producto + ", " +
-				cantidad + ", " +
-				fecha_venta + ", " +
-				total_venta + ")";
+        String sql = "INSERT INTO Ventas (id_empleado, id_producto, cantidad, fecha_venta, total_venta) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conection = options.getConnection();
              PreparedStatement pstmt = conection.prepareStatement(sql)) {
@@ -137,6 +125,84 @@ public class Query {
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;  // rethrow the exception after logging it
+        }
+    }
+    
+    // Método para actualizar un producto
+    public void updateProduct(int id, String nombre, String categoria, float precio, int stock) throws SQLException {
+        String sql = "UPDATE Productos SET nombre = ?, categoria = ?, precio = ?, stock = ? WHERE id_producto = ?";
+        try (Connection connection = options.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, nombre);
+            pstmt.setString(2, categoria);
+            pstmt.setFloat(3, precio);
+            pstmt.setInt(4, stock);
+            pstmt.setInt(5, id);
+            pstmt.executeUpdate();
+        }
+    }
+    
+    // Método para actualizar un empleado
+    public void updateEmploye(int id, String nombre, String cargo, String fecha_contratacion) throws SQLException {
+        String sql = "UPDATE Empleados SET nombre = ?, cargo = ?, fecha_contratacion = ? WHERE id_empleado = ?";
+        try (Connection connection = options.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, nombre);
+            pstmt.setString(2, cargo);
+            pstmt.setString(3, fecha_contratacion);
+            pstmt.setInt(4, id);
+            pstmt.executeUpdate();
+        }
+    }
+    
+    // Método para actualizar una venta
+    public void updateSale(int id, int id_empleado, int id_producto, int cantidad, String fecha_venta, float total_venta) throws SQLException {
+        String sql = "UPDATE Ventas SET id_empleado = ?, id_producto = ?, cantidad = ?, fecha_venta = ?, total_venta = ? WHERE id_venta = ?";
+        try (Connection connection = options.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id_empleado);
+            pstmt.setInt(2, id_producto);
+            pstmt.setInt(3, cantidad);
+            pstmt.setString(4, fecha_venta);
+            pstmt.setFloat(5, total_venta);
+            pstmt.setInt(6, id);
+            pstmt.executeUpdate();
+        }
+    }
+    
+    // Método para eliminar un producto
+    public void deleteProduct(int id) throws SQLException {
+        String sql = "DELETE FROM Productos WHERE id_producto = ?";
+        try (Connection connection = options.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        }
+    }
+    
+    // Método para eliminar un empleado
+    public void deleteEmploye(int id) throws SQLException {
+        String sql = "DELETE FROM Empleados WHERE id_empleado = ?";
+        try (Connection connection = options.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        }
+    }
+    
+    // Método para eliminar una venta
+    public void deleteSale(int id) throws SQLException {
+        String sql = "DELETE FROM Ventas WHERE id_venta = ?";
+        try (Connection connection = options.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
         }
     }
 	

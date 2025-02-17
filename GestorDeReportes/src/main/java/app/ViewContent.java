@@ -107,6 +107,8 @@ public class ViewContent extends JFrame {
     private void filterTable(String query) {
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModel);
         table.setRowSorter(sorter);
-        sorter.setRowFilter(RowFilter.regexFilter(query, 0));
+        if (sorter != null) {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query)); // Filtro sin distinguir mayúsculas/minúsculas
+        }
     }
 }

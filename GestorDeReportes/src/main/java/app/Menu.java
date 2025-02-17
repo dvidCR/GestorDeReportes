@@ -22,20 +22,26 @@ public class Menu extends JFrame {
         add(titleLabel, BorderLayout.NORTH);
         
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        buttonPanel.setLayout(new GridLayout(6, 1, 10, 10));
         
         JButton viewContentButton = new JButton("Ver contenido");
         JButton addContentButton = new JButton("Añadir contenido");
+        JButton updateContentButton = new JButton("Actualizar contenido");
+        JButton deleteContentButton = new JButton("Borrar contenido");
         JButton createReportButton = new JButton("Generar Reporte");
         JButton exitButton = new JButton("Salir");
         
         viewContentButton.addActionListener(e -> new ViewContent());
         addContentButton.addActionListener(e -> new AddContent());
+        updateContentButton.addActionListener(e -> new UpdateContent());
+        deleteContentButton.addActionListener(e -> new DeleteContent());
         createReportButton.addActionListener(e -> new CreateReport());
         exitButton.addActionListener(e -> System.exit(0));
         
         buttonPanel.add(viewContentButton);
         buttonPanel.add(addContentButton);
+        buttonPanel.add(updateContentButton);
+        buttonPanel.add(deleteContentButton);
         buttonPanel.add(createReportButton);
         buttonPanel.add(exitButton);
         

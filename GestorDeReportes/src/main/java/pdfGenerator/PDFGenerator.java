@@ -10,6 +10,9 @@ import com.itextpdf.layout.element.Table;
 
 import database.OptionsBBDD;
 import database.Query;
+import model.Employes;
+import model.Products;
+import model.Sales;
 
 public class PDFGenerator {
 	
@@ -56,29 +59,51 @@ public class PDFGenerator {
 	}
 	
 	private static void generateCells(Table table, String actualName) {
-	    List<?> content = null;
 	    List<String> columnName = options.getColumnName(actualName);
+	    
+	    for (Object name : columnName) {
+	    	table.addHeaderCell(name.toString());
+	    }
 
 	    switch (actualName) {
 	        case "Productos":
-	            content = query.getProducts();
+	            List<Products> product = query.getProducts();
+	            
+	            for(Products products : product) {
+	            	table.addCell(String.valueOf(products.getId_producto()));
+	            	table.addCell(products.getNombre());
+	            	table.addCell(products.getCategoria());
+	            	table.addCell(String.valueOf(products.getPrecio()));
+	            	table.addCell(String.valueOf(products.getStock()));
+	            }
+	            
 	            break;
 
 	        case "Empleados":
-	            content = query.getEmployes();
+	            List<Employes> employe = query.getEmployes();
+	            
+	            for(Employes employes : employe) {
+	            	table.addCell(String.valueOf(employes.getId_empleado()));
+	            	table.addCell(employes.getNombre());
+	            	table.addCell(employes.getCargo());
+	            	table.addCell(employes.getFecha_contratacion());
+	            }
+	            
 	            break;
 
 	        case "Ventas":
-	            content = query.getSales();
+	            List<Sales> sale = query.getSales();
+	            
+	            for(Sales sales : sale) {
+	            	table.addCell(String.valueOf(sales.getId_venta()));
+	            	table.addCell(String.valueOf(sales.getId_empleado()));
+	            	table.addCell(String.valueOf(sales.getId_producto()));
+	            	table.addCell(String.valueOf(sales.getCantidad()));
+	            	table.addCell(sales.getFecha_venta());
+	            	table.addCell(String.valueOf(sales.getTotal_venta()));
+	            }
 	            break;
 	    }
-	    
-	    for (Object name : columnName) {
-	    	table.addHeaderCell(String.valueOf(name));
-	    }
-	    
-	    for (Object c : content) {
-	        table.addCell(String.valueOf(c));
-	    }
+	    	    
 	}
 }
