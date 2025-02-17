@@ -15,6 +15,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
+/**
+ * Clase para actualizar el contenido de la base de datos
+ * 
+ * @author David Casado
+ */
 public class UpdateContent extends JFrame {
     private JTable table;
     private DefaultTableModel tableModel;
@@ -23,7 +28,11 @@ public class UpdateContent extends JFrame {
     private Query query;
     private TableModelListener tableModelListener;
     private TableRowSorter<DefaultTableModel> sorter;
-
+    
+    /**
+     * Constructor
+     * Inicializa la ventana.
+     */
     public UpdateContent() {
         setTitle("Actualizar Contenido");
         setSize(700, 500);
@@ -52,14 +61,13 @@ public class UpdateContent extends JFrame {
         tableModel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column != 0; // El ID no se puede editar
+                return column != 0;
             }
         };
         table = new JTable(tableModel);
         table.getTableHeader().setReorderingAllowed(false);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // Barra de búsqueda
         JPanel searchPanel = new JPanel(new FlowLayout());
         JLabel searchLabel = new JLabel("Buscar:");
         searchField = new JTextField(20);
@@ -77,12 +85,14 @@ public class UpdateContent extends JFrame {
         loadTableData();
         setVisible(true);
     }
-
+    
+    /**
+     * Carga la tabla con el contenido de la tabla seleccionada de la base de datos.
+     */
     private void loadTableData() {
         String selectedTable = (String) tableSelector.getSelectedItem();
         tableModel.setRowCount(0);
 
-        // **Eliminar el listener antiguo antes de modificar el modelo**
         if (tableModelListener != null) {
             tableModel.removeTableModelListener(tableModelListener);
         }
@@ -114,7 +124,6 @@ public class UpdateContent extends JFrame {
             e.printStackTrace();
         }
 
-        // **Crear un nuevo listener y agregarlo después de cargar los datos**
         tableModelListener = e -> {
             if (e.getType() == TableModelEvent.UPDATE) {
                 updateDatabase(e.getFirstRow(), e.getColumn());
@@ -122,11 +131,16 @@ public class UpdateContent extends JFrame {
         };
         tableModel.addTableModelListener(tableModelListener);
 
-        // **Inicializar el sorter para filtrar la tabla**
         sorter = new TableRowSorter<>(tableModel);
         table.setRowSorter(sorter);
     }
-
+    
+    /**
+     * Actualiza el contenido de la base de datos usando las celdas de la tabla.
+     * 
+     * @param row
+     * @param column
+     */
     private void updateDatabase(int row, int column) {
         String selectedTable = (String) tableSelector.getSelectedItem();
         int id = (int) tableModel.getValueAt(row, 0);
@@ -156,7 +170,12 @@ public class UpdateContent extends JFrame {
             JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    /**
+     * Un filtro de busqueda.
+     * 
+     * @param query
+     */
     private void filterTable(String query) {
         if (sorter != null) {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query)); // Filtro sin distinguir mayúsculas/minúsculas

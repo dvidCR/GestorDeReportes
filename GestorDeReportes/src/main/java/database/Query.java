@@ -12,12 +12,21 @@ import model.Employes;
 import model.Products;
 import model.Sales;
 
+/**
+ * Clase CRUD
+ * 
+ * @author David Casado
+ */
 public class Query {
 	
 	private OptionsBBDD options = new OptionsBBDD();
 
 	
-	// Método para obtener los productos
+	/**
+	 * Método para obtener los productos.
+	 * 
+	 * @return List<Products>
+	 */
     public List<Products> getProducts() {
         List<Products> list = new ArrayList<Products>();
         try (Connection conection = options.getConnection();
@@ -35,7 +44,11 @@ public class Query {
         return list;
     }
 	
-	// Método para obtener los empleados
+	/**
+	 * Método para obtener los empleados.
+	 * 
+	 * @return List<Employes>
+	 */
     public List<Employes> getEmployes() {
         List<Employes> list = new ArrayList<Employes>();
         try (Connection conection = options.getConnection();
@@ -53,7 +66,11 @@ public class Query {
         return list;
     }
     
-    // Método para obtener las ventas
+    /**
+     * Método para obtener las ventas.
+     * 
+     * @return List<Sales>
+     */
     public List<Sales> getSales() {
         List<Sales> list = new ArrayList<Sales>();
         try (Connection conection = options.getConnection();
@@ -71,7 +88,15 @@ public class Query {
         return list;
     }
     
- // Método para insertar productos usando PreparedStatement
+    /**
+     * Método para insertar los productos.
+     * 
+     * @param nombre
+     * @param categoria
+     * @param precio
+     * @param stock
+     * @throws SQLException
+     */
     public void setProducts(String nombre, String categoria, float precio, int stock) throws SQLException {
         String sql = "INSERT INTO Productos (nombre, categoria, precio, stock) VALUES (?, ?, ?, ?)";
 
@@ -86,11 +111,18 @@ public class Query {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e;  // rethrow the exception after logging it
+            throw e;
         }
     }
 
-    // Método para insertar empleados usando PreparedStatement
+    /**
+     * Método para insertar los empleados
+     * 
+     * @param nombre
+     * @param cargo
+     * @param fecha_contratacion
+     * @throws SQLException
+     */
     public void setEmployes(String nombre, String cargo, String fecha_contratacion) throws SQLException {
         String sql = "INSERT INTO Empleados (nombre, cargo, fecha_contratacion) VALUES (?, ?, ?)";
 
@@ -104,11 +136,20 @@ public class Query {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e;  // rethrow the exception after logging it
+            throw e;
         }
     }
 
-    // Método para insertar ventas usando PreparedStatement
+    /**
+     * Método para insertar las ventas
+     * 
+     * @param id_empleado
+     * @param id_producto
+     * @param cantidad
+     * @param fecha_venta
+     * @param total_venta
+     * @throws SQLException
+     */
     public void setSales(int id_empleado, int id_producto, int cantidad, String fecha_venta, float total_venta) throws SQLException {
         String sql = "INSERT INTO Ventas (id_empleado, id_producto, cantidad, fecha_venta, total_venta) VALUES (?, ?, ?, ?, ?)";
 
@@ -124,11 +165,20 @@ public class Query {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e;  // rethrow the exception after logging it
+            throw e;
         }
     }
     
-    // Método para actualizar un producto
+    /**
+     * Método para actualizar un producto
+     * 
+     * @param id
+     * @param nombre
+     * @param categoria
+     * @param precio
+     * @param stock
+     * @throws SQLException
+     */
     public void updateProduct(int id, String nombre, String categoria, float precio, int stock) throws SQLException {
         String sql = "UPDATE Productos SET nombre = ?, categoria = ?, precio = ?, stock = ? WHERE id_producto = ?";
         try (Connection connection = options.getConnection();
@@ -143,7 +193,15 @@ public class Query {
         }
     }
     
-    // Método para actualizar un empleado
+    /**
+     * Método para actualizar a un empleado
+     * 
+     * @param id
+     * @param nombre
+     * @param cargo
+     * @param fecha_contratacion
+     * @throws SQLException
+     */
     public void updateEmploye(int id, String nombre, String cargo, String fecha_contratacion) throws SQLException {
         String sql = "UPDATE Empleados SET nombre = ?, cargo = ?, fecha_contratacion = ? WHERE id_empleado = ?";
         try (Connection connection = options.getConnection();
@@ -157,7 +215,17 @@ public class Query {
         }
     }
     
-    // Método para actualizar una venta
+    /**
+     * Método para actualizar una venta
+     * 
+     * @param id
+     * @param id_empleado
+     * @param id_producto
+     * @param cantidad
+     * @param fecha_venta
+     * @param total_venta
+     * @throws SQLException
+     */
     public void updateSale(int id, int id_empleado, int id_producto, int cantidad, String fecha_venta, float total_venta) throws SQLException {
         String sql = "UPDATE Ventas SET id_empleado = ?, id_producto = ?, cantidad = ?, fecha_venta = ?, total_venta = ? WHERE id_venta = ?";
         try (Connection connection = options.getConnection();
@@ -173,7 +241,12 @@ public class Query {
         }
     }
     
-    // Método para eliminar un producto
+    /**
+     * Método para eliminar un producto
+     * 
+     * @param id
+     * @throws SQLException
+     */
     public void deleteProduct(int id) throws SQLException {
         String sql = "DELETE FROM Productos WHERE id_producto = ?";
         try (Connection connection = options.getConnection();
@@ -184,7 +257,12 @@ public class Query {
         }
     }
     
-    // Método para eliminar un empleado
+    /**
+     * Método para eliminar a un empleado
+     * 
+     * @param id
+     * @throws SQLException
+     */
     public void deleteEmploye(int id) throws SQLException {
         String sql = "DELETE FROM Empleados WHERE id_empleado = ?";
         try (Connection connection = options.getConnection();
@@ -195,7 +273,12 @@ public class Query {
         }
     }
     
-    // Método para eliminar una venta
+    /**
+     * Método para eliminar una venta
+     * 
+     * @param id
+     * @throws SQLException
+     */
     public void deleteSale(int id) throws SQLException {
         String sql = "DELETE FROM Ventas WHERE id_venta = ?";
         try (Connection connection = options.getConnection();

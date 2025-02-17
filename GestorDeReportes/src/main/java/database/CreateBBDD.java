@@ -2,6 +2,11 @@ package database;
 
 import java.sql.*;
 
+/**
+ * Clase para generar las tablas de la base de datos.
+ * 
+ * @author David Casado
+ */
 public class CreateBBDD {
     	
 	private OptionsBBDD options = new OptionsBBDD();

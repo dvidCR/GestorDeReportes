@@ -3,6 +3,12 @@ package app;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Clase para seleccionar de que tipo quieres generar el reporte (PDF o Excel)
+ * 
+ * @author David Casado
+ */
+
 public class CreateReport extends JFrame {
     public CreateReport() {
         setTitle("Generar Reporte");

@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import database.CreateBBDD;
 import database.Query;
 import model.Employes;
 import model.Products;
@@ -14,6 +13,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
+/**
+ * Clase para ver el contenido de la tabla seleccionada de la base de datos.
+ * 
+ * @author David Casado
+ */
 public class ViewContent extends JFrame {
     private JTextField filterField;
     private JTable table;
@@ -21,6 +25,10 @@ public class ViewContent extends JFrame {
     private JComboBox<String> tableSelector;
     private Query query;
     
+    /**
+     * Constructor.
+     * Inicializa la ventana.
+     */
     public ViewContent() {
         setTitle("Contenido BBDD");
         setSize(700, 500);
@@ -71,7 +79,10 @@ public class ViewContent extends JFrame {
         loadTableData();
         setVisible(true);
     }
-
+    
+    /**
+     * Carga la tabla con el contenido de la tabla seleccionada de la base de datos.
+     */
     private void loadTableData() {
         String selectedTable = (String) tableSelector.getSelectedItem();
         tableModel.setRowCount(0);
@@ -103,12 +114,16 @@ public class ViewContent extends JFrame {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * Un filtro de búsqueda.
+     * 
+     * @param query El texto de búsqueda para filtrar la tabla.
+     */
     private void filterTable(String query) {
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModel);
         table.setRowSorter(sorter);
         if (sorter != null) {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query)); // Filtro sin distinguir mayúsculas/minúsculas
-        }
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query));        }
     }
 }

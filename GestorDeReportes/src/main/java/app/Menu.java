@@ -8,8 +8,17 @@ import database.OptionsBBDD;
 import java.awt.*;
 import java.io.File;
 
+/**
+ * Clase menu para seleccionar una accion a la base de datos
+ * 
+ * @author David
+ */
 public class Menu extends JFrame {
 	
+	/**
+	 * Constructor.
+	 * Inicializa la ventana.
+	 */
     public Menu() {
         setTitle("Gestor De Reportes");
         setSize(400, 300);
@@ -52,6 +61,9 @@ public class Menu extends JFrame {
         start();
     }
     
+    /**
+     * Crea la base de datos si no existe y le genera las tablas.
+     */
     public void start() {
     	if (!new File("gestor.db").exists()) {
     		OptionsBBDD options = new OptionsBBDD();

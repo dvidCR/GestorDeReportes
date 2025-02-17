@@ -14,6 +14,11 @@ import model.Employes;
 import model.Products;
 import model.Sales;
 
+/**
+ * Clase para exportar el reporte en PDF.
+ * 
+ * @author David Casado
+ */
 public class PDFGenerator {
 	
 	private static OptionsBBDD options = new OptionsBBDD();
@@ -21,12 +26,21 @@ public class PDFGenerator {
 	
 	private final String filePath;
     private String fileName;
-
+    
+    /**
+     * Constructor
+     * 
+     * @param filePath
+     * @param fileName
+     */
     public PDFGenerator(String filePath, String fileName) {
         this.filePath = filePath;
         this.fileName = fileName;
     }
 	
+    /**
+     * Genera el PDF.
+     */
 	public void execute() {		
         try {
             PdfWriter writer = new PdfWriter(filePath + "/" + fileName);
@@ -43,7 +57,12 @@ public class PDFGenerator {
             e.printStackTrace();
         }
     }
-
+	
+	/**
+	 * Crea una tabla para cada tabla en la base de datos.
+	 * 
+	 * @param document
+	 */
 	private static void generateTables(Document document) {
 		List<String> nameTable = options.getTableNames();
 		for(int i = 0; i < nameTable.size(); i++) {
@@ -58,6 +77,12 @@ public class PDFGenerator {
 		}
 	}
 	
+	/**
+	 * Crea y rellena las celdas de la tabla.
+	 * 
+	 * @param table
+	 * @param actualName
+	 */
 	private static void generateCells(Table table, String actualName) {
 	    List<String> columnName = options.getColumnName(actualName);
 	    

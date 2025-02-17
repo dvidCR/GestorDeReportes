@@ -9,11 +9,20 @@ import model.Employes;
 import model.Products;
 import model.Sales;
 
+/**
+ * Clase para borrar un elemento de la base de datos.
+ * 
+ * @author David Casado
+ */
 public class DeleteContent extends JFrame {
     private JComboBox<String> tableSelector;
     private JTextField idField;
     private Query query;
-
+    
+    /**
+     * Constructor.
+     * Inicializa la ventana.
+     */
     public DeleteContent() {
         setTitle("Eliminar Contenido");
         setSize(400, 250);
@@ -32,18 +41,17 @@ public class DeleteContent extends JFrame {
         JLabel tableLabel = new JLabel("Seleccionar tabla:");
         tableSelector = new JComboBox<>(new String[]{"Productos", "Empleados", "Ventas"});
 
-        JLabel idLabel = new JLabel("Pon el ID del elemento que quieras borrar:");
+        JLabel idLabel = new JLabel("Introduce el ID del elemento que quieras borrar:");
         idField = new JTextField();
 
         JButton deleteButton = new JButton("Borrar");
         deleteButton.addActionListener(e -> {
-			try {
-				confirmDelete();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
+            try {
+                confirmDelete();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         centerPanel.add(tableLabel);
         centerPanel.add(tableSelector);
@@ -55,13 +63,18 @@ public class DeleteContent extends JFrame {
         add(centerPanel, BorderLayout.CENTER);
         setVisible(true);
     }
-
+    
+    /**
+     * Ventana de confirmación para eliminar el elemento.
+     * 
+     * @throws SQLException Si ocurre un error al eliminar el elemento.
+     */
     private void confirmDelete() throws SQLException {
         String selectedTable = (String) tableSelector.getSelectedItem();
         String idText = idField.getText().trim();
 
         if (idText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, introduce un ID.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -89,7 +102,14 @@ public class DeleteContent extends JFrame {
             JOptionPane.showMessageDialog(this, "El ID debe ser un número.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    /**
+     * Muestra el elemento completo que quieres borrar.
+     * 
+     * @param table La tabla en la que buscar el elemento.
+     * @param id El ID del elemento a buscar.
+     * @return Una cadena con los detalles del elemento, o null si no se encuentra.
+     */
     private String getRecordData(String table, int id) {
         if ("Productos".equals(table)) {
             List<Products> products = query.getProducts();
@@ -127,7 +147,14 @@ public class DeleteContent extends JFrame {
         }
         return null;
     }
-
+    
+    /**
+     * Borra el elemento seleccionado.
+     * 
+     * @param table La tabla de la que eliminar el elemento.
+     * @param id El ID del elemento a eliminar.
+     * @throws SQLException Si ocurre un error al eliminar el elemento.
+     */
     private void deleteRecord(String table, int id) throws SQLException {
         boolean success = false;
 

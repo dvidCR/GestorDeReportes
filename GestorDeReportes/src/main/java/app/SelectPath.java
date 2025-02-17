@@ -8,13 +8,24 @@ import java.io.File;
 import pdfGenerator.PDFGenerator;
 import excelGenerator.ExcelGenerator;
 
+/**
+ * Clase para indicar el nombre y la ubicación del reporte.
+ * 
+ * @author David Casado
+ */
 public class SelectPath extends JFrame {
     private JTextField fileNameField;
     private JTextField filePathField;
     private JButton browseButton;
     private JButton saveButton;
-    private String reportType; // "PDF", "Excel" o "Both"
-
+    private String reportType;
+    
+    /**
+     * Constructor.
+     * Inicializa la ventana.
+     * 
+     * @param reportType El tipo de reporte a generar ("PDF", "Excel" o "Both").
+     */
     public SelectPath(String reportType) {
         this.reportType = reportType;
 
@@ -43,7 +54,12 @@ public class SelectPath extends JFrame {
 
         setVisible(true);
     }
-
+    
+    /**
+     * Ventana para seleccionar la ruta de guardado del reporte mediante una ventana.
+     * 
+     * @param e El evento de acción.
+     */
     private void chooseDirectory(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -54,7 +70,12 @@ public class SelectPath extends JFrame {
             filePathField.setText(selectedDir.getAbsolutePath());
         }
     }
-
+    
+    /**
+     * Genera el reporte con la opción especificada en la clase CreateReport.
+     * 
+     * @param e El evento de acción.
+     */
     private void generateReport(ActionEvent e) {
         String fileName = fileNameField.getText().trim();
         String filePath = filePathField.getText().trim();

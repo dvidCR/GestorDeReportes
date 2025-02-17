@@ -13,18 +13,33 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Clase para exportar el reporte en Excel.
+ * 
+ * @author David Casado
+ */
+
 public class ExcelGenerator {
     private static OptionsBBDD options = new OptionsBBDD();
     private static Query query = new Query();
 
     private final String filePath;
     private final String fileName;
-
+    
+    /**
+     * Constructor.
+     * 
+     * @param filePath
+     * @param fileName
+     */
     public ExcelGenerator(String filePath, String fileName) {
         this.filePath = filePath;
         this.fileName = fileName;
     }
-
+    
+    /**
+     * Genera el Excel.
+     */
     public void generateExcel() {
         List<String> tables = options.getTableNames();
 
@@ -40,7 +55,14 @@ public class ExcelGenerator {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * Inserta los datos usando filas y columnas en especifico.
+     * Crea una tabla para cada tabla que tenga la base de datos.
+     * 
+     * @param workbook
+     * @param tableName
+     */
     private void createSheetForTable(Workbook workbook, String tableName) {
         Sheet sheet = workbook.createSheet(tableName);
         

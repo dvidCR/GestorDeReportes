@@ -8,11 +8,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase para la lógica o querys concretas.
+ * 
+ * @author David Casado
+ */
 public class OptionsBBDD {
 	
 	private Connection c = null;
 	private Statement stmt = null;
 	
+	/**
+	 * Inicializa la conexión a la base de datos.
+	 * 
+	 * @return Connection
+	 */
 	public Connection getConnection() {
         try {
             if (c == null || c.isClosed()) {
@@ -26,6 +36,11 @@ public class OptionsBBDD {
 	    return c;
     }
 	
+	/**
+	 * Pide el nombre de las tablas de la base de datos.
+	 * 
+	 * @return List<String>
+	 */
 	public List<String> getTableNames() {
         List<String> tableNames = new ArrayList<>();
         try {
@@ -46,6 +61,12 @@ public class OptionsBBDD {
         return tableNames;
     }
 	
+	/**
+	 * Cuenta el número de columnas que tiene una tabla en concreto.
+	 * 
+	 * @param tableName
+	 * @return int
+	 */
 	public int countColumns(String tableName) {
         int columnCount = 0;
         try {
@@ -65,6 +86,12 @@ public class OptionsBBDD {
         return columnCount;
     }
 	
+	/**
+	 * Pide el nombre de las columnas de una tabla en específico.
+	 * 
+	 * @param tableName
+	 * @return List<String>
+	 */
 	public List<String> getColumnName(String tableName) {
         List<String> columnNames = new ArrayList<>();
         try {
@@ -83,7 +110,10 @@ public class OptionsBBDD {
         }
         return columnNames;
     }
-
+	
+	/**
+	 * Cierra la conexión a la base de datos
+	 */
 	 public void cerrarBBDD() {
 	        try {
 	            if (c != null) {
