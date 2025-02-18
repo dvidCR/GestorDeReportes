@@ -86,28 +86,28 @@ public class ViewContent extends JFrame {
     private void loadTableData() {
         String selectedTable = (String) tableSelector.getSelectedItem();
         tableModel.setRowCount(0);
-        
+
         try {
             if ("Productos".equals(selectedTable)) {
-                tableModel.setColumnIdentifiers(new String[]{"Nombre", "Categoría", "Precio", "Stock"});
+                tableModel.setColumnIdentifiers(new String[]{"ID", "Nombre", "Categoría", "Precio", "Stock"});
                 List<Products> products = query.getProducts();
-                
+
                 for (Products product : products) {
-                    tableModel.addRow(new Object[]{product.getNombre(), product.getCategoria(), product.getPrecio(), product.getStock()});
+                    tableModel.addRow(new Object[]{product.getId_producto(), product.getNombre(), product.getCategoria(), product.getPrecio(), product.getStock()});
                 }
             } else if ("Empleados".equals(selectedTable)) {
-                tableModel.setColumnIdentifiers(new String[]{"Nombre", "Cargo", "Fecha de Contratación"});
+                tableModel.setColumnIdentifiers(new String[]{"ID", "Nombre", "Cargo", "Fecha de Contratación"});
                 List<Employes> employees = query.getEmployes();
-                
+
                 for (Employes employee : employees) {
-                    tableModel.addRow(new Object[]{employee.getNombre(), employee.getCargo(), employee.getFecha_contratacion()});
+                    tableModel.addRow(new Object[]{employee.getId_empleado(), employee.getNombre(), employee.getCargo(), employee.getFecha_contratacion()});
                 }
             } else if ("Ventas".equals(selectedTable)) {
-                tableModel.setColumnIdentifiers(new String[]{"ID Empleado", "ID Producto", "Cantidad", "Fecha Venta", "Total Venta"});
+                tableModel.setColumnIdentifiers(new String[]{"ID", "ID Empleado", "ID Producto", "Cantidad", "Fecha Venta", "Total Venta"});
                 List<Sales> sales = query.getSales();
-                
+
                 for (Sales sale : sales) {
-                    tableModel.addRow(new Object[]{sale.getId_empleado(), sale.getId_producto(), sale.getCantidad(), sale.getFecha_venta(), sale.getTotal_venta()});
+                    tableModel.addRow(new Object[]{sale.getId_venta(), sale.getId_empleado(), sale.getId_producto(), sale.getCantidad(), sale.getFecha_venta(), sale.getTotal_venta()});
                 }
             }
         } catch (Exception e) {
