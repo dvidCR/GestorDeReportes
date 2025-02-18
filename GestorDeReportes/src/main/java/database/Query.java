@@ -19,7 +19,7 @@ import model.Sales;
  */
 public class Query {
 	
-	private OptionsBBDD options = new OptionsBBDD();
+	public OptionsBBDD options = new OptionsBBDD();
 
 	
 	/**
