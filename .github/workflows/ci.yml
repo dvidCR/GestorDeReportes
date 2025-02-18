@@ -18,6 +18,9 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: Build with Maven
+        working-directory: GestorDeReportes
         run: mvn clean install
       - name: Run tests
+        working-directory: GestorDeReportes
         run: mvn test
+      
